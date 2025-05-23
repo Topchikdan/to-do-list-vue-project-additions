@@ -1,7 +1,9 @@
 <script setup>
 import { useTaskStore } from './stores/taskStore'
+import { useI18n } from 'vue-i18n'
 
 const store = useTaskStore()
+const { t, locale } = useI18n()
 </script>
 
 <template>
@@ -9,7 +11,7 @@ const store = useTaskStore()
     <router-view>
       <v-main class="bg-grey-darken-4 d-flex flex-column align-center min-h-screen pa-4">
         <v-container class="pa-0" style="width: 80%; max-width: 1000px">
-          <h2 class="text-white text-center mb-6">Сегодняшние задачи</h2>
+          <h2 class="text-white text-center mb-6">{{ t('title') }}</h2>
 
           <v-slide-y-transition group>
             <v-card
@@ -48,7 +50,7 @@ const store = useTaskStore()
             <div class="d-flex align-center" style="position: relative; z-index: 2">
               <v-text-field
                 v-model="store.newTaskText"
-                placeholder="Введите задачу"
+                :placeholder="t('placeholder')"
                 variant="solo"
                 hide-details
                 density="comfortable"
@@ -63,6 +65,11 @@ const store = useTaskStore()
                 <v-icon>mdi-plus</v-icon>
               </v-btn>
             </div>
+          </div>
+
+          <div class="mt-6 d-flex justify-center">
+            <v-btn class="me-2" @click="locale = 'ru'" :variant="locale === 'ru' ? 'flat' : 'outlined'">RU</v-btn>
+            <v-btn @click="locale = 'en'" :variant="locale === 'en' ? 'flat' : 'outlined'">EN</v-btn>
           </div>
         </v-container>
       </v-main>
