@@ -1,6 +1,7 @@
 <script setup>
 import { useTaskStore } from './stores/taskStore'
 import { useI18n } from 'vue-i18n'
+import BaseCard from './components/BaseCard.vue'
 
 const store = useTaskStore()
 const { t, locale } = useI18n()
@@ -14,32 +15,36 @@ const { t, locale } = useI18n()
           <h2 class="text-white text-center mb-6">{{ t('title') }}</h2>
 
           <v-slide-y-transition group>
-            <v-card
+            <BaseCard
               v-for="task in store.tasks"
               :key="task.id"
-              class="d-flex align-center justify-space-between px-4 py-2 mb-3 mx-auto"
-              elevation="3"
-              rounded="xl"
-              color="grey-darken-2"
-              max-width="100%"
             >
-              <v-checkbox
-                :model-value="store.checkedTaskIds.has(task.id)"
-                @update:modelValue="() => store.toggleTask(task.id)"
-                class="me-3"
-                hide-details
-                color="white"
-                density="compact"
-              />
-              <div class="flex-grow-1 text-white text-body-1">
-                <span :class="{ 'text-decoration-line-through': store.checkedTaskIds.has(task.id) }">
+              <template #left>
+                <v-checkbox
+                  :model-value="store.checkedTaskIds.has(task.id)"
+                  @update:modelValue="() => store.toggleTask(task.id)"
+                  class="me-3"
+                  hide-details
+                  color="white"
+                  density="compact"
+                />
+              </template>
+
+              <template #default>
+                <span
+                  class="text-white text-body-1"
+                  :class="{ 'text-decoration-line-through': store.checkedTaskIds.has(task.id) }"
+                >
                   {{ task.text }}
                 </span>
-              </div>
-              <v-btn icon color="red" size="x-small" @click="store.deleteTask(task.id)">
-                <v-icon size="16">mdi-close</v-icon>
-              </v-btn>
-            </v-card>
+              </template>
+
+              <template #right>
+                <v-btn icon color="red" size="x-small" @click="store.deleteTask(task.id)">
+                  <v-icon size="16">mdi-close</v-icon>
+                </v-btn>
+              </template>
+            </BaseCard>
           </v-slide-y-transition>
 
           <div class="position-relative mt-4">
