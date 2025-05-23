@@ -159,4 +159,8 @@ button {
 
 .delete-button:hover {
   background-color: #ff2e2e;
+}
+
+.text-decoration-line-through {
+  text-decoration: line-through;
 }/*# sourceMappingURL=style.css.map */

@@ -1,20 +1,14 @@
 <script setup>
 import { ref } from 'vue'
 
-const tasks = ref([
-  { id: 1, text: 'Пример задачи' }
-])
-
+const tasks = ref([{ id: 1, text: 'Пример задачи' }])
 const checkedTaskIds = ref(new Set())
 const newTaskText = ref('')
 
 function addTask() {
   const text = newTaskText.value.trim()
   if (!text) return
-  tasks.value.push({
-    id: Date.now(),
-    text
-  })
+  tasks.value.push({ id: Date.now(), text })
   newTaskText.value = ''
 }
 
@@ -33,38 +27,74 @@ function deleteTask(id) {
 </script>
 
 <template>
-  <h4>Сегодняшние задачи</h4>
-  <div class="tasks">
-    <div
-      v-for="task in tasks"
-      :key="task.id"
-      class="task"
-    >
-      <div class="round">
-        <input
-          type="checkbox"
-          :id="'task-' + task.id"
-          :checked="checkedTaskIds.has(task.id)"
-          @change="toggleTask(task.id)"
-        />
-        <label :for="'task-' + task.id"></label>
-      </div>
-      <span :class="{ done: checkedTaskIds.has(task.id) }">{{ task.text }}</span>
-      <button @click="deleteTask(task.id)" class="delete-button">✕</button>
-    </div>
-  </div>
+  <v-app>
+    <v-main class="bg-grey-darken-4 d-flex flex-column align-center min-h-screen pa-4">
+      <v-container
+        class="pa-0"
+        style="width: 80%; max-width: 1000px"
+      >
+        <h2 class="text-white text-center mb-6">Сегодняшние задачи</h2>
 
-  <div class="add-task">
-    <input
-      v-model="newTaskText"
-      type="text"
-      placeholder="Введите задачу"
-      @keyup.enter="addTask"
-    />
-    <button @click="addTask">+</button>
-  </div>
+        <v-slide-y-transition group>
+          <v-card
+            v-for="task in tasks"
+            :key="task.id"
+            class="d-flex align-center justify-space-between px-4 py-2 mb-3 mx-auto"
+            elevation="3"
+            rounded="xl"
+            color="grey-darken-2"
+            max-width="100%"
+          >
+            <v-checkbox
+              :model-value="checkedTaskIds.has(task.id)"
+              @update:modelValue="() => toggleTask(task.id)"
+              class="me-3"
+              hide-details
+              color="white"
+              density="compact"
+            />
+            <div class="flex-grow-1 text-white text-body-1">
+              <span :class="{ 'text-decoration-line-through': checkedTaskIds.has(task.id) }">
+                {{ task.text }}
+              </span>
+            </div>
+            <v-btn icon color="red" size="x-small" @click="deleteTask(task.id)">
+              <v-icon size="16">mdi-close</v-icon>
+            </v-btn>
+          </v-card>
+        </v-slide-y-transition>
+
+        <div class="position-relative mt-4">
+          <div
+            class="bg-grey-darken-4 rounded-pill px-2 py-1 d-flex align-center"
+            style="position: absolute; inset: 0; z-index: 1"
+          ></div>
+          <div class="d-flex align-center" style="position: relative; z-index: 2">
+            <v-text-field
+              v-model="newTaskText"
+              placeholder="Введите задачу"
+              variant="solo"
+              hide-details
+              density="comfortable"
+              bg-color="white"
+              color="black"
+              class="flex-grow-1 me-3"
+              rounded
+              style="border-radius: 999px; background-color: white; color: black"
+              @keyup.enter="addTask"
+            />
+            <v-btn icon color="purple" size="large" @click="addTask">
+              <v-icon>mdi-plus</v-icon>
+            </v-btn>
+          </div>
+        </div>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <style scoped>
-
+  .text-decoration-line-through {
+    text-decoration: line-through;
+  }
 </style>
