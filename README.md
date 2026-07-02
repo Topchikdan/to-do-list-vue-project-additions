@@ -1,5 +1,118 @@
-# Vue 3 + Vite
+# To-Do List-Vue (расширенная версия)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+> Минималистичное приложение для управления задачами на Vue 3 с мультиязычностью, Pinia и Vuetify.
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+---
+
+## Содержание
+
+- [О проекте](#о-проекте)
+- [Возможности](#возможности)
+- [Быстрый старт](#быстрый-старт)
+- [Сборка](#сборка)
+- [Структура проекта](#структура-проекта)
+- [Локализация](#локализация)
+- [Лицензия](#лицензия)
+
+---
+
+## О проекте
+
+Минималистичное приложение для управления задачами на Vue 3 (Composition API) с тёмной темой по умолчанию, переключением языков и Pinia для управления состоянием.
+
+| Технология | Назначение |
+|---|---|
+| Vue 3 + Composition API | UI-фреймворк |
+| Vuetify 3 | Компонентная библиотека (Material Design) |
+| Pinia | Управление состоянием |
+| vue-i18n | Интернационализация (ru / en) |
+| Vue Router | Маршрутизация |
+| Vite | Сборщик проекта |
+| SASS | Расширенные стили |
+
+---
+
+## Возможности
+
+- Добавление задач через поле ввода (кнопка или клавиша `Enter`)
+- Отметка выполнения: чекбокс зачёркивает задачу
+- Удаление задач кнопкой `×` рядом с каждой задачей
+- Анимация списка: плавное появление и исчезновение карточек
+- Мультиязычность: переключение между русским и английским интерфейсом (RU / EN)
+- Тёмная тема по умолчанию через Vuetify
+
+---
+
+## Быстрый старт
+
+Нужен [Node.js](https://nodejs.org/) версии 18 или новее.
+
+```bash
+# 1. Клонируйте репозиторий
+git clone https://github.com/Topchikdan/to-do-list-vue-project-additions.git
+cd to-do-list-vue-project-additions
+
+# 2. Установите зависимости
+npm install
+
+# 3. Запустите в режиме разработки
+npm run dev
+```
+
+Откройте адрес из терминала (обычно http://localhost:5173).
+
+---
+
+## Сборка
+
+```bash
+npm run build
+npm run preview
+```
+
+---
+
+## Структура проекта
+
+```
+.
+├── index.html
+└── src/
+    ├── main.js              # точка входа, регистрация плагинов
+    ├── App.vue              # корневой компонент
+    ├── router.js            # настройка маршрутов
+    ├── i18n.js              # конфигурация локализации
+    ├── components/
+    │   └── BaseCard.vue     # переиспользуемая карточка задачи
+    ├── stores/
+    │   └── taskStore.js     # Pinia-стор: задачи, добавление, удаление
+    └── styles/              # глобальные стили
+```
+
+---
+
+## Локализация
+
+Приложение поддерживает два языка, переключение происходит прямо в интерфейсе кнопками **RU** / **EN**. Локаль по умолчанию — русский.
+
+Чтобы добавить новый язык, отредактируйте `src/i18n.js`:
+
+```js
+const messages = {
+  en: { title: "Today's Tasks", placeholder: 'Enter a task' },
+  ru: { title: 'Сегодняшние задачи', placeholder: 'Введите задачу' },
+  // de: { title: 'Heutige Aufgaben', placeholder: 'Aufgabe eingeben' },
+}
+```
+
+---
+
+## Лицензия
+
+Не указана.
+
+---
+
+<div align="center">
+  <a href="https://github.com/Topchikdan/to-do-list-vue-project-additions/stargazers">Поставьте звезду, если проект полезен!</a>
+</div>
